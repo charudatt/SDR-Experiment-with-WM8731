@@ -1,0 +1,18 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#define CONFIG_TFT_ROTATION      0
+
+#define CONFIG_I2C_SDA_PIN       8
+#define CONFIG_I2C_SCL_PIN       9
+#define CONFIG_I2C_SPEED_HZ      100000UL
+
+#define CONFIG_WM8731_I2C_ADDR   0x1A
+
+#define CONFIG_SI5351_XTAL_HZ    25000000UL
+#define CONFIG_SI5351_CORRECTION (+98700L)
+
+#define CONFIG_CLK0_HZ           14000000UL
+#define CONFIG_CLK2_MCLK_HZ      12288000UL
+
+#endif
