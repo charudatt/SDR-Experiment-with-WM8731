@@ -90,6 +90,104 @@ For microphone loopback, REV-S7 changes R4 to `0x014`, selecting the microphone 
 
 This detail is documented in `tools/REV-S7/doc/REV-S7.md`.
 
+
+## FT8 Decoder Milestone — REV-D5
+
+The project has now reached a major validated FT8 receive milestone using the ESP32-S3 and WM8731 audio path.
+
+### REV-D5 — Native FT8 decoder
+
+REV-D5 is the validated live FT8 decoder stage built on the proven WM8731 audio chain.
+
+The validated processing path is:
+
+```text
+WebSDR / PC audio
+        ↓
+WM8731 LINE IN
+        ↓
+WM8731 ADC
+        ↓
+ESP32-S3 I2S RX
+        ↓
+12 kHz audio acquisition
+        ↓
+15-second FT8 capture
+        ↓
+PSRAM capture buffering
+        ↓
+Native embedded FT8 decoder
+        ↓
+Candidate detection
+        ↓
+LDPC / CRC validation
+        ↓
+Decoded FT8 messages
+        ↓
+ILI9341 TFT display
+```
+
+REV-D5 uses the supplied embedded FT8 decoder library rather than a separate custom FT8 decoding implementation. The decoder operates on the complete FT8 15-second receive window and is integrated with the existing ESP32-S3 + WM8731 platform.
+
+### REV-D5 display features
+
+The validated TFT interface provides:
+
+- decoded FT8 messages in a compact scrolling/list display
+- decoded frequency information
+- total decoded-message PASS count
+- CQ messages highlighted in yellow
+- configurable number of displayed message lines
+- optional CQ-only display filtering
+
+The CQ display filter is controlled in the project header:
+
+```cpp
+#define FT8_DISPLAY_CQ_ONLY 0
+```
+
+```text
+0 = display all successfully decoded messages
+1 = display only CQ messages
+```
+
+The `PASS:n` counter always represents the **total number of successfully decoded messages**, including valid non-CQ messages that are hidden when CQ-only display is enabled.
+
+### FT8 validation status
+
+REV-D5 has been **live tested and confirmed working** with the WM8731 receive path and WebSDR audio input.
+
+The FT8 decoder milestone demonstrates that the existing hardware platform can be used as a practical digital Amateur Radio receive platform without disturbing the previously validated WM8731 audio chain.
+
+The earlier REV-S7 through REV-S13 validation stages remain frozen references. REV-D5 is a separate application-level milestone built on those proven hardware and audio stages.
+
+### FT8 decoder tools
+
+The validated decoder implementation is also packaged under the repository `tools/` area as:
+
+```text
+tools/
+└── ESP32S3_FT8_Decoder/
+    ├── ESP32S3_FT8_Decoder.ino
+    ├── pins.h
+    ├── wm8731.h
+    ├── ft8_engine.h
+    ├── ft8_engine.cpp
+    ├── README.md
+    └── src/
+        ├── common/
+        ├── fft/
+        └── ft8/
+```
+
+This package is intended to provide a reproducible starting point for further FT8 experiments on the ESP32-S3 platform.
+
+### Development rule
+
+The successful REV-D5 implementation should be treated as a **frozen validated milestone**.
+
+Future FT8 experiments should create a new revision rather than modifying the validated REV-D5 implementation in place.
+
 ## Hardware
 
 The main board combines an ESP32-S3 module, WM8731 codec, Si5351 synthesizer, ILI9341 TFT/touch interface and supporting Amateur Radio test circuitry.
@@ -104,7 +202,8 @@ Libraries used by REV-S7 are documented in the individual tool documentation.
 
 ## Status
 
-**REV-S7: FROZEN / VALIDATED**
+**REV-S7: FROZEN / VALIDATED**  
+**REV-D5: FROZEN / VALIDATED FT8 DECODER MILESTONE**
 
 Future development should not modify REV-S7. New functionality should be introduced as a new validation revision and documented independently.
 
