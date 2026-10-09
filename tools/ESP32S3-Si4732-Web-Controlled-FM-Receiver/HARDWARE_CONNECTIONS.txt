@@ -1,0 +1,17 @@
+ESP32-S3 Si4732 Stage 1B — Hardware Connections
+
+ESP32-S3 GPIO 8  -> SDA (Si4732 I2C)
+ESP32-S3 GPIO 9  -> SCL (Si4732 I2C)
+ESP32-S3 GPIO 19 -> RST (Si4732)
+ESP32-S3 GPIO 1  -> Rotary encoder A
+ESP32-S3 GPIO 2  -> Rotary encoder B
+ESP32-S3 GPIO 3  -> Rotary encoder push switch
+
+Observed Si4732 I2C address: 0x11
+Serial Monitor: 115200 baud
+Web server: port 80; use the IP printed at startup.
+
+Important:
+- Confirm electrical levels and common ground before wiring.
+- This package does not include WM8731, Si5351, TFT/OLED, or FT8 connections.
+- No antenna was connected during the reported Stage 1B validation; RF reception is not yet validated.

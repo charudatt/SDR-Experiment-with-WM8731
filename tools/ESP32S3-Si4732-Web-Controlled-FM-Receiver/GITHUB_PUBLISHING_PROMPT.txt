@@ -1,0 +1,25 @@
+PROMPT — PUBLISH THE VALIDATED SI4732 STAGE 1B PROJECT TO GITHUB
+
+I want to publish the attached ZIP package as a new GitHub repository. Treat the package as the authoritative source. Do not rewrite, refactor, rename, or silently modify the Arduino source files.
+
+Suggested repository name:
+ESP32S3-Si4732-Web-Controlled-FM-Receiver
+
+Suggested repository description:
+Standalone ESP32-S3 and Si4732 FM receiver with rotary encoder tuning and a browser-based control interface; Stage 1B hardware validated.
+
+Requirements:
+1. Inspect the package and preserve the .ino, .h, and .cpp source files exactly as provided.
+2. Use README.md as the repository front page. Preserve the hardware pin map, required libraries, build instructions, validation record, security warning, and explicit boundary that this is not merged with the WM8731/FT8 host project.
+3. Include HARDWARE_CONNECTIONS.txt, CHANGELOG.md, docs/GITHUB_RELEASE.md, and this prompt file.
+4. Do not add a fabricated test result, schematic, screenshot, license, dependency version, or feature. The owner has confirmed the page opens and web SET/step controls work, and that the displayed frequency follows the rotary encoder. No antenna was connected, so do not claim RF reception or sensitivity has been validated.
+5. Do not include private Wi-Fi credentials, local machine paths, build artifacts, or a .git directory.
+6. Do not merge this code into the FT8 decoder or modify the existing WM8731/I2S code.
+7. No project license has been selected. Do not invent one. Explain that a license must be chosen before public reuse/redistribution is authorized.
+8. Give me beginner-friendly steps for creating the repository and uploading the extracted files through the GitHub website. If you have access to a GitHub connector, ask before performing any remote write or repository creation; otherwise provide the manual steps.
+9. Suggest this initial commit message:
+   "Initial release: ESP32-S3 Si4732 Stage 1B web control"
+10. Suggested first release title:
+    "Stage 1B — Standalone Si4732 FM Receiver with Web + Rotary Control"
+
+Before publishing, report the file list and any issue that needs my decision. Do not claim that the repository has been published unless the GitHub upload actually succeeds.
